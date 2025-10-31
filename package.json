@@ -1,0 +1,14 @@
+{
+  "name": "slack-xcancel-bot",
+  "version": "1.0.0",
+  "description": "Bot Slack qui remplace les liens x.com par xcancel.com",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@slack/bolt": "^3.16.1",
+    "dotenv": "^16.4.1"
+  }
+}

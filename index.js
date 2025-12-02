@@ -1,8 +1,8 @@
-import { App } from '@slack/bolt';
+import bolt from '@slack/bolt';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const app = new App({
+const app = new bolt.App({
   token: process.env.SLACK_BOT_TOKEN,
   signingSecret: process.env.SLACK_SIGNING_SECRET
 });
@@ -22,7 +22,7 @@ app.event('message', async ({ event, client }) => {
         link.replace('https://x.com/', 'https://xcancel.com/')
       );
 
-      const message = `🔗 Voici les liens corrigés :\n${fixedLinks.join('\n')}`;
+      const message = `🔗 Voici le lien corrigé :\n${fixedLinks.join('\n')}`;
 
       // Répond en thread sous le message original
       await client.chat.postMessage({

@@ -8,6 +8,7 @@ const app = new bolt.App({
 });
 
 app.event('message', async ({ event, client }) => {
+  console.log("EVENT REÇU:", event);
   try {
     // Ignore les messages du bot lui-même ou sans texte
     if (event.subtype === 'bot_message' || !event.text) return;
@@ -27,7 +28,7 @@ app.event('message', async ({ event, client }) => {
       // Répond en thread sous le message original
       await client.chat.postMessage({
         channel: event.channel,
-        thread_ts: event.ts,
+        // thread_ts: event.ts, // pour poster le message en thread
         text: message
       });
 

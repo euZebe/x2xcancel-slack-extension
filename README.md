@@ -1,4 +1,5 @@
-# XCancel Slack bot
+# <img src="assets/x2xcancel.png" width="40" /> XCancel Slack bot
+
 
 ## 🧐 purpose
 When visiting an X link, you cannot see the replies to the post unless you have an X account. Alternatively, there is XCancel: replace `x.com` with `xcancel.com` and you will see the original post and all its replies anonymously.

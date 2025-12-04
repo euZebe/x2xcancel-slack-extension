@@ -56,7 +56,9 @@ Still in OAuth & Permissions :
 SLACK_BOT_TOKEN=xoxb-... # bot user OAuth token
 SLACK_SIGNING_SECRET=... # in basic information from the slack bot
 ```
-- get the deployment URL: `https://<your-project-name>.netlify.app/.netlify/functions/hello`
+- save and trigger deploy
+- check the hello function responds: https://<your-project-name>.netlify.app/.netlify/functions/hello
+- get the deployment URL: `https://<your-project-name>.netlify.app/.netlify/functions/slack-events`
 
 
 ---

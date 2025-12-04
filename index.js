@@ -1,5 +1,7 @@
 import bolt from '@slack/bolt';
 import dotenv from 'dotenv';
+import { processSlackMessage } from './business-logic.js';
+
 dotenv.config();
 
 const app = new bolt.App({
@@ -8,31 +10,18 @@ const app = new bolt.App({
 });
 
 app.event('message', async ({ event, client }) => {
-  console.log("EVENT REÇU:", event);
   try {
-    // Ignore les messages du bot lui-même ou sans texte
-    if (event.subtype === 'bot_message' || !event.text) return;
-
-    // Cherche les liens x.com
-    const regex = /https:\/\/x\.com\/[^\s]+/g;
-    const matches = event.text.match(regex);
-
-    if (matches) {
-      // Crée les liens corrigés
-      const fixedLinks = matches.map(link =>
-        link.replace('https://x.com/', 'https://xcancel.com/')
-      );
-
-      const message = `🔗 Voici le lien corrigé :\n${fixedLinks.join('\n')}`;
-
-      // Répond en thread sous le message original
+    const result = processSlackMessage(event);
+    
+    if (result) {
+      // Répond avec le message généré
       await client.chat.postMessage({
-        channel: event.channel,
-        // thread_ts: event.ts, // pour poster le message en thread
-        text: message
+        channel: result.channel,
+        // thread_ts: result.threadTs, // pour poster le message en thread
+        text: result.message
       });
 
-      console.log(`Corrigé un message dans #${event.channel}`);
+      console.log(`Corrigé un message dans #${result.channel}`);
     }
   } catch (error) {
     console.error('Erreur dans le traitement du message :', error);

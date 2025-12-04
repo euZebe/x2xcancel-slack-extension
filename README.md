@@ -58,7 +58,7 @@ SLACK_SIGNING_SECRET=... # in basic information from the slack bot
 ```
 - save and trigger deploy
 - check the hello function responds: https://<your-project-name>.netlify.app/.netlify/functions/hello
-- get the deployment URL: `https://<your-project-name>.netlify.app/.netlify/functions/slack-events`
+- get the deployment URL: `https://<your-project-name>.netlify.app/.netlify/functions/replace-x-by-xcancel`
 
 
 ---
@@ -69,7 +69,7 @@ SLACK_SIGNING_SECRET=... # in basic information from the slack bot
 - Back to https://api.slack.com/apps, click on your app.
 - Event Subscriptions
 - toggle switch to ON
-- in Request URL, put the deployment URL you got from netlify. It should mark it as `Verified ✓`
+- in Request URL, put the deployment URL you got from netlify (see above). It should mark it as `Verified ✓`
 - in "Subscribe to bot events" section, add `message.channels` and `message.groups`
 - Save changes
 

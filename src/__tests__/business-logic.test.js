@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { convertLinksToXCancel } from "../business-logic.js";
+import {
+  convertLinksToXCancel,
+  processSlackMessage,
+} from "../business-logic.js";
 
 describe("business-logic", () => {
   it("should replace x.com single match", () => {
@@ -14,5 +17,13 @@ describe("business-logic", () => {
       "https://xcancel.com/bidule",
       "https://xcancel.com/pouet",
     ]);
+  });
+
+  it("should not duplicate ", () => {
+    expect(
+      processSlackMessage({
+        text: "https://x.com/beinsports_FR/status/2012275925837053968",
+      })?.message,
+    ).toMatch("https://xcancel.com/beinsports_FR/status/2012275925837053968");
   });
 });

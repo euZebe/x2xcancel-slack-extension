@@ -21,7 +21,8 @@ export function detectXLinks(text) {
  * @returns {string} - Le lien xcancel.com
  */
 export function convertToXCancelLink(xLink) {
-  return xLink.replace("https://x.com/", "https://xcancel.com/");
+  const replaced = xLink.replace("https://x.com/", "https://xcancel.com/");
+  return ` ${replaced} `;
 }
 
 /**

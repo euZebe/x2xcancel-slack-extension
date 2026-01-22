@@ -69,13 +69,6 @@ export function processSlackMessage(event) {
   // Convertit les liens
   const fixedLinks = convertLinksToXCancel(xLinks);
 
-  console.log(
-    "message reçu:",
-    event,
-    "\n ===> message transformé:",
-    fixedLinks,
-  );
-
   // Génère le message de réponse
   const message = generateResponseMessage(fixedLinks);
 

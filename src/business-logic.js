@@ -11,8 +11,8 @@
 export function detectXLinks(text) {
   if (!text) return [];
 
-  const regex = /https:\/\/x\.com\/[^\s]+/gi;
-  return text.match(regex) || [];
+  const regex = /https:\/\/x\.com\/[^\s>|]+/gi;
+  return [...new Set(text.match(regex))] || [];
 }
 
 /**
@@ -61,7 +61,7 @@ export function processSlackMessage(event) {
   }
 
   // Détecte les liens x.com
-  const xLinks = detectXLinks(event.text.replace("<", "").replace(">", ""));
+  const xLinks = detectXLinks(event.text);
 
   if (xLinks.length === 0) {
     return null;

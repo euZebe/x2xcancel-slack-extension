@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   convertLinksToXCancel,
+  detectXLinks,
   processSlackMessage,
 } from "../business-logic.js";
 
@@ -28,5 +29,13 @@ describe("business-logic", () => {
       `🔗 Voici le lien corrigé :
  https://xcancel.com/beinsports_FR/status/2012275925837053968 `,
     );
+  });
+
+  it("should handle links sent by the mobile app", () => {
+    expect(
+      detectXLinks(
+        "<https://x.com/i/status/2013957003270406616|https://x.com/i/status/2013957003270406616>",
+      ),
+    ).toStrictEqual(["https://x.com/i/status/2013957003270406616"]);
   });
 });

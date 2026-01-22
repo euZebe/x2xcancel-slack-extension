@@ -10,7 +10,7 @@
  */
 export function detectXLinks(text) {
   if (!text) return [];
-  
+
   const regex = /https:\/\/x\.com\/[^\s]+/gi;
   return text.match(regex) || [];
 }
@@ -21,7 +21,7 @@ export function detectXLinks(text) {
  * @returns {string} - Le lien xcancel.com
  */
 export function convertToXCancelLink(xLink) {
-  return xLink.replace('https://x.com/', 'https://xcancel.com/');
+  return xLink.replace("https://x.com/", "https://xcancel.com/");
 }
 
 /**
@@ -40,12 +40,12 @@ export function convertLinksToXCancel(xLinks) {
  */
 export function generateResponseMessage(fixedLinks) {
   if (fixedLinks.length === 0) return null;
-  
+
   if (fixedLinks.length === 1) {
     return `🔗 Voici le lien corrigé :\n${fixedLinks[0]}`;
   }
-  
-  return `🔗 Voici les liens corrigés :\n${fixedLinks.join('\n')}`;
+
+  return `🔗 Voici les liens corrigés :\n${fixedLinks.join("\n")}`;
 }
 
 /**
@@ -55,22 +55,27 @@ export function generateResponseMessage(fixedLinks) {
  */
 export function processSlackMessage(event) {
   // Ignore les messages du bot lui-même ou sans texte
-  if (event.subtype === 'bot_message' || !event.text) {
+  if (event.subtype === "bot_message" || !event.text) {
     return null;
   }
 
-  console.log("message reçu:", event);
-
   // Détecte les liens x.com
-  const xLinks = detectXLinks(event.text);
-  
+  const xLinks = detectXLinks(event.text.replace("<", "").replace(">", ""));
+
   if (xLinks.length === 0) {
     return null;
   }
 
   // Convertit les liens
   const fixedLinks = convertLinksToXCancel(xLinks);
-  
+
+  console.log(
+    "message reçu:",
+    event,
+    "\n ===> message transformé:",
+    fixedLinks,
+  );
+
   // Génère le message de réponse
   const message = generateResponseMessage(fixedLinks);
 
@@ -78,7 +83,6 @@ export function processSlackMessage(event) {
     message,
     fixedLinks,
     channel: event.channel,
-    threadTs: event.ts // Pour poster en thread si nécessaire
+    threadTs: event.ts, // Pour poster en thread si nécessaire
   };
 }
-
